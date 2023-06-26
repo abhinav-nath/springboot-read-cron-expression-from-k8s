@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8scrontest
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8scrontest
+  template:
+    metadata:
+      labels:
+        app: k8scrontest
+    spec:
+      containers:
+        - name: k8scrontest
+          image: k8scrontest:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          args:
+            - "--test.cron=*/2 * * * * *"
